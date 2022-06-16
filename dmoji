@@ -10,7 +10,9 @@ Options:
 }
 
 cmd() {
-    wget -O- -q https://unicode.org/Public/emoji/14.0/emoji-test.txt | tail --lines=+35 | dmenu -l 10
+    [ ! -d ~/.cache/dmoji ] && mkdir -p ~/.cache/dmoji
+    [ ! -f ~/.cache/dmoji/emojis.txt ] && wget -O ~/.cache/dmoji/emojis.txt https://unicode.org/Public/emoji/14.0/emoji-test.txt
+    cat ~/.cache/dmoji/emojis.txt | tail --lines=+35 | dmenu -l 10
 }
 
 icon() {

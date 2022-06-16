@@ -1,8 +1,12 @@
 # Dmoji – Dmenu Emoji
 
-Dmoji is a simple command-line utility to Emerge and Unmerge packages using Dmenu.
-The usage is very simple:
-* `$ dmoji` – select an emoji
+Dmoji is a simple program to select an emoji and copy it to the system clipboard
+Its usage is simple:
+
+* `$ dmoji -i` – select an emoji
+* `$ dmoji -n` – select a unicode number
+
+The `-i` option is used by default.
 
 ## Dependencies
 1. dmenu

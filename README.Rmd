@@ -1,64 +1,54 @@
-Dmoji – Dmenu Emoji
-================
+---
+title: Dmoji – Dmenu Emoji
+output: amaryaml::github
+---
 
-## Contents
+Dmoji is a simple program to select an emoji and copy it to the system clipboard
 
--   [Usage](#usage)
--   [Dependencies](#dependencies)
--   [Installation](#installation)
-    -   [Universal](#universal)
-    -   [Gentoo](#gentoo)
--   [Uninstallation](#uninstallation)
-    -   [Universal](#universal-1)
-    -   [Gentoo](#gentoo-1)
+# Usage
 
-Dmoji is a simple program to select an emoji and copy it to the system
-clipboard
-
-## Usage
-
-``` sh
+```sh
 `# user` dmoji -i # select an emoji
 `# user` dmoji -n # select a unicode number
 ```
 
 The `-i` option is used by default.
 
-## Dependencies
+# Dependencies
 
-1.  Dmenu
-2.  Xclip
+1. Dmenu
+1. Xclip
 
-## Installation
+# Installation
 
-### Universal
+## Universal
 
-``` sh
+```sh
 `# user` git clone https://github.com/amarakon/dmoji
 `# user` cd dmoji
 `# root` make install
 ```
 
-### Gentoo
+## Gentoo
 
-``` sh
+```sh
 `# root` eselect repository add amarlay git https://github.com/amarakon/amarlay
 `# root` emerge --sync amarlay
 `# root` emerge x11-misc/dmoji
 ```
 
-## Uninstallation
+# Uninstallation
 
-### Universal
+## Universal
 
-``` sh
+```sh
 `# user` cd dmoji
 `# root` make uninstall
 ```
 
-### Gentoo
+## Gentoo
 
-``` sh
+```sh
 `# root` emerge -c x11-misc/dmoji
 # Remove my overlay (optional)
 `# root` eselect-repository remove -f amarlay

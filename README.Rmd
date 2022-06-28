@@ -13,6 +13,7 @@ Dmoji is a simple program to select an emoji and copy it to the system clipboard
 ```
 
 The `-i` option is used by default.
+Please run `` `# user` dmoji --help `` for more information.
 
 # Dependencies
 

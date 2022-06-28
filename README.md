@@ -22,7 +22,8 @@ clipboard
 `# user` dmoji -n # select a unicode number
 ```
 
-The `-i` option is used by default.
+The `-i` option is used by default. Please run
+`` `# user` dmoji --help `` for more information.
 
 ## Dependencies
 

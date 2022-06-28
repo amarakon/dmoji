@@ -1,12 +1,18 @@
 #!/bin/sh
 
-help() {
-    printf "Usage:	dmoji [option]
+main() {
+    parse_opts "$@"
 
-Options:
--i|--icon   │ Get the unicode icon (default)
--n|--number │ Get the unicode number
-\n"
+    { [ -n "$help" ] && help; } ||
+    { [ -n "$icon" ] && icon; } ||
+    { [ -n "$number" ] && number; } ||
+    { [ -n "$clear" ] && cache; } ||
+    { icon; }
+}
+
+cache() {
+    { [ -f ~/.cache/dmoji/emojis.txt ] && rm -f ~/.cache/dmoji/emojis.txt; } ||
+    { echo "There is no cache to clear."; }
 }
 
 cmd() {
@@ -15,20 +21,41 @@ cmd() {
     cat ~/.cache/dmoji/emojis.txt | tail --lines=+35 | dmenu -l 10
 }
 
-icon() {
-    cmd | awk '{print $5}' | tr -d '\n' | xclip -r -i -selection clipboard
+icon() { cmd | awk '{print $5}' | tr -d '\n' | xclip -r -i -selection clipboard; }
+number() { cmd | cut -d ' ' -f 1 | tr '\n' ';' | xclip -r -i -selection clipboard; }
+
+help() {
+    echo "Usage:	dmoji [option]
+
+Options:
+-i|--icon   │ Get the unicode icon (default)
+-n|--number │ Get the unicode number
+-c|--clear  │ Clear the cache
+-h|--help   │ Print this help message and exit
+"
 }
 
-number() {
-    cmd | cut -d ' ' -f 1 | tr '\n' ';' | xclip -r -i -selection clipboard
+parse_opts() {
+    while [ $# -gt 0 ]; do
+	case "$1" in
+	    -h|--help)
+		help=1
+		shift
+		;;
+	    -i|--icon)
+		icon=1
+		shift
+		;;
+	    -n|--number)
+		number=1
+		shift
+		;;
+	    -c|--clear)
+		clear=1
+		shift
+		;;
+	esac
+    done
 }
 
-if [ "$1" = "-h" -o "$1" = "--help" ]; then
-    help
-elif [ "$1" = "-n" -o "$1" = "--number" ]; then
-    number
-elif [ "$1" = "-i" -o "$1" = "--icon" ]; then
-    icon
-else
-    icon
-fi
+main "$@"

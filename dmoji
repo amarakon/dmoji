@@ -21,7 +21,7 @@ cmd() {
     cat ~/.cache/dmoji/emojis.txt | tail --lines=+35 | dmenu -l 10
 }
 
-icon() { cmd | awk '{print $5}' | tr -d '\n' | xclip -r -i -selection clipboard; }
+icon() { cmd | awk -F '# ' {'print $2'} | cut -d ' ' -f 1 | tr -d '\n' | xclip -r -i -selection clipboard; }
 number() { cmd | cut -d ' ' -f 1 | tr '\n' ';' | xclip -r -i -selection clipboard; }
 
 help() {

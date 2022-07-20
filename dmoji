@@ -3,16 +3,16 @@
 main() {
     parse_opts "$@"
 
-    { [ -n "$help" ] && help; } ||
-    { [ -n "$icon" ] && icon; } ||
-    { [ -n "$number" ] && number; } ||
-    { [ -n "$clear" ] && cache; } ||
-    { icon; }
+    if [ -n "$help" ]; then help
+    elif [ -n "$icon" ]; then icon
+    elif [ -n "$number" ]; then number
+    elif [ -n "$clear" ]; then cache
+    else icon; fi
 }
 
 cache() {
-    { [ -f ~/.cache/dmoji/emojis.txt ] && rm -f ~/.cache/dmoji/emojis.txt; } ||
-    { echo "There is no cache to clear."; }
+    if [ -f ~/.cache/dmoji/emojis.txt ]; then rm -f ~/.cache/dmoji/emojis.txt
+    else echo "There is no cache to clear."; fi
 }
 
 cmd() {

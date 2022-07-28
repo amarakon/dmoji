@@ -12,7 +12,7 @@ main() {
 
 cache() {
     if [ -f ~/.cache/dmoji/emojis.txt ]; then rm -f ~/.cache/dmoji/emojis.txt
-    else echo "There is no cache to clear."; fi
+    else printf "There is no cache to clear.\n"; fi
 }
 
 cmd() {
@@ -24,16 +24,13 @@ cmd() {
 icon() { cmd | awk -F '# ' {'print $2'} | cut -d ' ' -f 1 | tr -d '\n' | xclip -r -i -selection clipboard; }
 number() { cmd | cut -d ' ' -f 1 | tr '\n' ';' | xclip -r -i -selection clipboard; }
 
-help() {
-    echo "Usage:	dmoji [option]
-
+help() { printf "Usage:	dmoji [option]
 Options:
 -i|--icon   │ Get the unicode icon (default)
 -n|--number │ Get the unicode number
 -c|--clear  │ Clear the cache
 -h|--help   │ Print this help message and exit
-"
-}
+"; }
 
 parse_opts() {
     while [ $# -gt 0 ]; do

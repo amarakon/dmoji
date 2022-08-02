@@ -1,30 +1,30 @@
 #!/bin/sh
 
 main() {
-    parse_opts "$@"
+	parse_opts "$@"
 
-    if [ -n "$help" ]; then help
-    elif [ -n "$icon" ]; then icon
-    elif [ -n "$number" ]; then number
-    elif [ -n "$clear" ]; then cache
-    else icon; fi
+	if [ -n "$help" ]; then help
+	elif [ -n "$icon" ]; then icon
+	elif [ -n "$number" ]; then number
+	elif [ -n "$clear" ]; then cache
+	else icon; fi
 }
 
 cache() {
-    if [ -f ~/.cache/dmoji/emojis.txt ]; then rm -f ~/.cache/dmoji/emojis.txt
-    else printf "There is no cache to clear.\n"; fi
+	if [ -f ~/.cache/dmoji/emojis.txt ]; then rm -f ~/.cache/dmoji/emojis.txt
+	else printf '%s\n' "There is no cache to clear."; fi
 }
 
 cmd() {
-    [ ! -d ~/.cache/dmoji ] && mkdir -p ~/.cache/dmoji
-    [ ! -f ~/.cache/dmoji/emojis.txt ] && wget -O ~/.cache/dmoji/emojis.txt https://unicode.org/Public/emoji/14.0/emoji-test.txt
-    cat ~/.cache/dmoji/emojis.txt | tail --lines=+35 | dmenu -l 10
+	[ ! -d ~/.cache/dmoji ] && mkdir -p ~/.cache/dmoji
+	[ ! -f ~/.cache/dmoji/emojis.txt ] && wget -O ~/.cache/dmoji/emojis.txt https://unicode.org/Public/emoji/14.0/emoji-test.txt
+	cat ~/.cache/dmoji/emojis.txt | tail --lines=+35 | dmenu -l 10
 }
 
 icon() { cmd | awk -F '# ' {'print $2'} | cut -d ' ' -f 1 | tr -d '\n' | xclip -r -i -selection clipboard; }
 number() { cmd | cut -d ' ' -f 1 | tr '\n' ';' | xclip -r -i -selection clipboard; }
 
-help() { printf "Usage:	dmoji [option]
+help() { printf 'Usage:\t%s' "dmoji [option]
 
 Options:
 -i|--icon   │ Get the unicode icon (default)
@@ -34,26 +34,14 @@ Options:
 "; }
 
 parse_opts() {
-    while [ $# -gt 0 ]; do
-	case "$1" in
-	    -h|--help)
-		help=1
-		shift
-		;;
-	    -i|--icon)
-		icon=1
-		shift
-		;;
-	    -n|--number)
-		number=1
-		shift
-		;;
-	    -c|--clear)
-		clear=1
-		shift
-		;;
-	esac
-    done
+	while [ $# -gt 0 ]; do
+		case "$1" in
+			-h|--help) help=1 ; shift ;;
+			-i|--icon) icon=1 ; shift ;;
+			-n|--number) number=1 ; shift ;;
+			-c|--clear) clear=1 ; shift ;;
+		esac
+	done
 }
 
 main "$@"
